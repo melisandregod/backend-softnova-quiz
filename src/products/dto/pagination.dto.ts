@@ -6,24 +6,24 @@ export class PaginationDTO {
   @ApiProperty({
     description: 'Number of items to skip',
     type: Number,
-    required: false, 
-    example: 1, 
+    required: false,
+    example: 1,
   })
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  @Type(() => Number) 
+  @Type(() => Number)
   skip: number;
 
   @ApiProperty({
     description: 'Number of items to return',
     type: Number,
-    required: false, 
-    example: 10, 
+    required: false,
+    example: 10,
   })
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  @Type(() => Number) 
+  @Type(() => Number)
   limit: number;
 }

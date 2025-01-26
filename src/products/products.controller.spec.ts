@@ -38,7 +38,10 @@ describe('ProductsController', () => {
 
   describe('create', () => {
     it('should create a product', async () => {
-      const createProductDto: CreateProductDto = { name: 'Test Product', price: 100 };
+      const createProductDto: CreateProductDto = {
+        name: 'Test Product',
+        price: 100,
+      };
       const mockProduct = { id: '1', ...createProductDto };
 
       mockProductService.create.mockResolvedValueOnce(mockProduct);
@@ -81,7 +84,10 @@ describe('ProductsController', () => {
   describe('update', () => {
     it('should update a product', async () => {
       const id = '1';
-      const updateProductDto: UpdateProductDto = { name: 'Updated Product', price: 200 };
+      const updateProductDto: UpdateProductDto = {
+        name: 'Updated Product',
+        price: 200,
+      };
       const updatedProduct = { id, ...updateProductDto };
 
       mockProductService.update.mockResolvedValueOnce(updatedProduct);

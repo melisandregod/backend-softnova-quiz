@@ -5,8 +5,8 @@ export class UpdateProductDto {
   @ApiProperty({
     description: 'The name of the product',
     type: String,
-    required: false, 
-    example: 'Updated Product Name', 
+    required: false,
+    example: 'Updated Product Name',
   })
   @IsString()
   @IsOptional()
@@ -15,8 +15,8 @@ export class UpdateProductDto {
   @ApiProperty({
     description: 'The price of the product',
     type: Number,
-    required: false, 
-    example: 100, 
+    required: false,
+    example: 100,
   })
   @IsNumber()
   @IsOptional()

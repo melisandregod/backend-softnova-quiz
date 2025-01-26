@@ -37,7 +37,10 @@ describe('ProductsService', () => {
   });
 
   it('should return all products with pagination', async () => {
-    const mockProducts = [{ id: '1', name: 'Product 1' ,price :100}, { id: '2', name: 'Product 2' ,price :100}];
+    const mockProducts = [
+      { id: '1', name: 'Product 1', price: 100 },
+      { id: '2', name: 'Product 2', price: 100 },
+    ];
     mockProductModel.find().exec.mockResolvedValueOnce(mockProducts);
     mockProductModel.countDocuments.mockResolvedValueOnce(2);
 
@@ -49,7 +52,7 @@ describe('ProductsService', () => {
   });
 
   it('should find a product by ID', async () => {
-    const mockProduct = { id: '1', name: 'Product 1' ,price :100};
+    const mockProduct = { id: '1', name: 'Product 1', price: 100 };
 
     mockProductModel.findById.mockReturnValueOnce({
       exec: jest.fn().mockResolvedValueOnce(mockProduct),
@@ -64,11 +67,13 @@ describe('ProductsService', () => {
       exec: jest.fn().mockResolvedValueOnce(null),
     });
 
-    await expect(service.findOne('999')).rejects.toThrow('Product with id 999 not found');
+    await expect(service.findOne('999')).rejects.toThrow(
+      'Product with id 999 not found',
+    );
   });
 
   it('should delete a product by ID', async () => {
-    const mockDeletedProduct = { id: '1', name: 'Product 1' ,price :100};
+    const mockDeletedProduct = { id: '1', name: 'Product 1', price: 100 };
 
     mockProductModel.findByIdAndDelete.mockReturnValueOnce({
       exec: jest.fn().mockResolvedValueOnce(mockDeletedProduct),

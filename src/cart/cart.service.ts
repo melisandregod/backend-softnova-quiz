@@ -23,7 +23,10 @@ export class CartService {
   }
 
   async findOne(id: string): Promise<Cart> {
-    const cart = await this.cartModel.findById(id).populate('products.productId').exec();
+    const cart = await this.cartModel
+      .findById(id)
+      .populate('products.productId')
+      .exec();
     if (!cart) {
       throw new NotFoundException(`Cart with ID ${id} not found`);
     }
@@ -51,24 +54,23 @@ export class CartService {
     discount: number;
     net: number;
   }> {
-    
     const cart = await this.cartModel
       .findById(cartId)
-      .populate('products.productId') 
+      .populate('products.productId')
       .exec();
 
     if (!cart) {
       throw new NotFoundException(`Cart with ID ${cartId} not found`);
     }
 
-    let totalPrice = 0; 
-    let discount = 0; 
+    let totalPrice = 0;
+    let discount = 0;
 
     const total = cart.products.reduce((sum, item) => sum + item.quantity, 0);
 
     // เก็บจำนวนหนังสือแต่ละประเภท
     const bookCount = cart.products.reduce((countMap, item) => {
-      const product = item.productId as any; 
+      const product = item.productId as any;
       const productId = product._id.toString();
       countMap[productId] = (countMap[productId] || 0) + item.quantity;
 
