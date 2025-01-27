@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
@@ -20,7 +19,7 @@ export class CartService {
   }
 
   async findAll(): Promise<Cart[]> {
-    return this.cartModel.find().populate('products.productId').exec();
+    return this.cartModel.find().exec();
   }
 
   async findOne(id: string): Promise<Cart> {
