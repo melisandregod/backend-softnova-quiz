@@ -69,7 +69,7 @@ export class CartService {
 
     const total = cart.products.reduce((sum, item) => sum + item.quantity, 0);
 
-    // เก็บจำนวนหนังสือแต่ละประเภท
+    
     const bookCount = cart.products.reduce((countMap, item) => {
       const product = item.productId as any;
       const productId = product._id.toString();
@@ -78,12 +78,12 @@ export class CartService {
       return countMap;
     }, {});
 
-    // คำนวณส่วนลดตามโปรโมชั่น
+    
     while (Object.keys(bookCount).length > 0) {
-      const uniqueBooks = Object.keys(bookCount).length; // จำนวนหนังสือไม่ซ้ำ
-      const applicableBooks = Math.min(uniqueBooks, 7); // โปรโมชั่นสูงสุดคือ 7 เล่ม
+      const uniqueBooks = Object.keys(bookCount).length; 
+      const applicableBooks = Math.min(uniqueBooks, 7); 
 
-      // ดึงราคาจากหนังสือที่ไม่ซ้ำ
+      
       const discountBooks = Object.keys(bookCount).slice(0, applicableBooks);
       const groupPrice = discountBooks.reduce((sum, bookId) => {
         const product = cart.products.find(
@@ -92,28 +92,28 @@ export class CartService {
         return sum + (product?.price || 0);
       }, 0);
 
-      // คำนวณส่วนลด
+      
       const discountRate = [0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6][
         applicableBooks
       ];
       discount += groupPrice * discountRate;
 
-      // ลดจำนวนเล่มในแต่ละกลุ่มโปรโมชั่น
+     
       for (const bookId of discountBooks) {
         bookCount[bookId] -= 1;
         if (bookCount[bookId] === 0) {
-          delete bookCount[bookId]; // ลบเล่มที่คำนวณหมดแล้ว
+          delete bookCount[bookId]; 
         }
       }
     }
 
-    // คำนวณราคารวมก่อนส่วนลด
+    
     totalPrice = cart.products.reduce((sum, item) => {
-      const product = item.productId as any; // บอก TypeScript ว่าเป็น Object หลัง Populate
+      const product = item.productId as any; 
       return sum + (product.price || 0) * item.quantity;
     }, 0);
 
-    // ราคาหลังส่วนลด
+    
     const net = totalPrice - discount;
 
     return { total, totalPrice, discount, net };
