@@ -12,6 +12,23 @@ export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
   ) {}
+
+  async onModuleInit() {
+    const count = await this.productModel.countDocuments();
+    if (count === 0) {
+      console.log('Seeding initial products...');
+      await this.productModel.insertMany([
+        { name: "แฮร์รี่ พอตเตอร์กับศิลาอาถรรพ์", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับห้องแห่งความลับ", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับนักโทษแห่งอัซคาบัน", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับถ้วยอัคนี", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับภาคีนกฟีนิกซ์", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับเจ้าชายเลือดผสม", price: 100 },
+        { name: "แฮร์รี่ พอตเตอร์กับเครื่องรางยมทูต", price: 100 },
+      ]);
+    }
+  }
+
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const createdProduct = new this.productModel(createProductDto);
     return createdProduct.save();
