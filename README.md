@@ -23,6 +23,7 @@ git clone https://github.com/melisandregod/backend-softnova-quiz.git
 cd backend-softnova-quiz
 npm install
 docker-compose up -d
+npm run test
 npm run start:dev
 ```
 
